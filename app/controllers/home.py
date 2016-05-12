@@ -17,6 +17,25 @@ class home(Controller):
     def index(self):
         return self.load_view('index.html')
     def login(self):
+        if session['logstatus']==True:
+            return redirect('/dashboard')
         return self.load_view('users/login.html')
     def register(self):
+        if session['logstatus']==True:
+            return redirect('/dashboard')
         return self.load_view('users/register.html')
+    def adminadd(self):
+        return self.load_view('users/register.html')
+    def edit(self,user_id):
+        if session['permission']>=8 or session['id']==user_id:
+            return self.load_view('users/edit.html',user_id=user_id)
+        return redirect('/dashboard')
+    def dashboard(self):
+        if session['logstatus']==False:
+            return redirect('/')
+        users=self.models['User'].show_all_users()
+        return self.load_view('dashboard.html',users=users)
+    def userpage(self,user_id):
+        print"here"
+        user=self.models['User'].show_user(user_id)
+        return self.load_view('users/userpage.html',user=user)

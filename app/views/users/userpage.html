@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="/static/css/home.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/static/css/home.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
@@ -9,20 +10,27 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#">Not Facebook</a>
+  <a class="navbar-brand" href="/">Not Facebook</a>
   <ul class="nav navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/login">Sign In</a>
+      <a class="nav-link" href="/users/show/{{session['id']}}">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">Log Out</a>
     </li>
   </ul>
 </nav>
     <div id="banner" class="container hero-unit">
-      <h1>Welcome to not facebook</h1>
-        <p>The best fake social media site on the web</p>
-        <p><a class="btn btn-primary btn-large" href="/login">Get Started</a></p>
+      <h1>{{user['first_name']}} {{user['last_name']}}</h1>
+      <p><a class="btn btn-primary btn-large" href="/dashboard">Back</a></p>
+    </div>
+    <div class="container">
+      <p>User ID: {{user['id']}}</p>
+      <p>Email Address: {{user['email']}}</p>
+      <p>Description: {{user['description']}}</p>
     </div>
   </body>
 </html>

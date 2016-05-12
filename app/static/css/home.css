@@ -1,10 +1,18 @@
 * {
 
 }
-
+nav{
+  background-color: #550000;
+}
+.nav-link,.navbar-brand{
+  color:white;
+}
 #banner{
   background-color:#550000;
   color:white;
   border-radius: 10px;
-  
+
+}
+#log,#reg{
+  margin-left: 70px;
 }
