@@ -54,6 +54,22 @@ class User(Model):
             self.db.query_db(query,data)
             return {"status":True}
 
+    def update_pass(self,info):
+        errors=[]
+        if len(info['password'])<1:
+            errors.append('Password field cannot be empty')
+        elif info['password']!=info['passconfirm']:
+            errors.append('Password confirmation does not match')
+        elif len(info['password'])>8:
+            errors.append('Password cannot be larger be greater than 8 characters')
+        if errors:
+            return {"status":False, "errors":errors}
+        else:
+            query="UPDATE users SET password=:password WHERE id=:id"
+            data={'id':info['id'],'password':self.bcrypt.generate_password_hash(info['password'])}
+            self.db.query_db(query,data)
+            return {"status":True}
+
     def destroy_user(self,user_id,permission):
         check=self.db.query_db("SELECT permission FROM users WHERE id=:id", {'id':user_id})[0]
         if permission>check['permission']:

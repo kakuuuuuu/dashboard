@@ -33,3 +33,12 @@ class Messages(Controller):
         self.models['Message'].create_comment(info)
         url='/users/show/'+str(user_id)
         return redirect(url)
+    def deletemsg(self,user_id,message_id):
+        self.models['Message'].delete_message(message_id)
+        url='/users/show/'+str(user_id)
+        return redirect(url)
+
+    def deletecmt(self,user_id,comment_id):
+        self.models['Message'].delete_comment(comment_id)
+        url='/users/show/'+str(user_id)
+        return redirect(url)

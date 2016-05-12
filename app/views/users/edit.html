@@ -93,16 +93,16 @@
         </div>
         </div>
         <div class="form-bottom">
-      <form role="form" action="/updatepass/{{user['id']}}" method="post" class="registration-form">
+      <form role="form" action="/users/updatepass/{{user['id']}}" method="post" class="registration-form">
         <div class="form-group">
           Password:<br />
           <label class="sr-only" for="password">Password</label>
-            <input type="text" name="password" placeholder="Password..." >
+            <input type="password" name="password" placeholder="Password..." >
           </div>
           <div class="form-group">
             Password Confirmation:<br />
             <label class="sr-only" for="passconfirm">PassConfirm</label>
-            <input type="text" name="passconfirm" placeholder="Confirm Password...">
+            <input type="password" name="passconfirm" placeholder="Confirm Password...">
           </div>
           <button type="submit" class="btn">Update Password</button>
       </form>

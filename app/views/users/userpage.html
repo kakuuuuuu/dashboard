@@ -21,6 +21,11 @@
     <li class="nav-item">
       <a class="nav-link" href="/logout">Log Out</a>
     </li>
+    {% if session['id']==user['id'] %}
+    <li class="nav-item">
+      <a class="nav-link" href="/users/edit/{{user['id']}}">Edit Information</a>
+    </li>
+    {% endif %}
   </ul>
 </nav>
     <div id="banner" class="container hero-unit">
@@ -62,7 +67,7 @@
         <p>{{message['message']}}</p>
         {% if session['id']==message['user_id'] or session['permission']>=8%}
         <div class="container col-sm-8">
-        <form role="form" action="/comments/delete/{{message['id']}}" method="get" class="msgdel registration-form">
+        <form role="form" action="/messages/delete/{{user['id']}}/{{message['id']}}" method="get" class="msgdel registration-form">
           <button type="submit" class="btn delete">Delete</button>
         </form>
       </div>
@@ -79,7 +84,7 @@
             </div>
           {% if session['id']==comment['user_id'] or session['permission']>=8%}
           <div class="container col-sm-1">
-          <form role="form" action="/comments/delete/{{comment['id']}}" method="get" class="pull-right delete registration-form">
+          <form role="form" action="/comments/delete/{{user['id']}}/{{comment['id']}}" method="get" class="pull-right delete registration-form">
             <button type="submit" class="btn delete">Delete</button>
           </form>
         </div>

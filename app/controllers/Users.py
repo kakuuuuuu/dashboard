@@ -46,8 +46,6 @@ class Users(Controller):
             return redirect('/register')
 
     def updateinfo(self,user_id):
-        print user_id
-
         if session['id']==int(user_id):
             user_info={
                 'id':int(user_id),
@@ -72,7 +70,22 @@ class Users(Controller):
                 return redirect(url)
         else:
             return redirect('/dashboard')
-        # return redirect('/dashboard')
+
+    def updatepass(self,user_id):
+        user_info={
+            'id':int(user_id),
+            'password':request.form['password'],
+            'passconfirm':request.form['passconfirm']
+        }
+        check=self.models['User'].update_pass(user_info)
+        if check['status']==False:
+            for error in check['errors']:
+                flash(error,"update_error")
+                url='users/edit/'+str(user_id)
+                return redirect(url)
+        else:
+            return redirect('/dashboard')
+
     def destroy(self,user_id):
         check=self.models['User'].destroy_user(user_id,session['permission'])
         if check['status']==False:

@@ -28,3 +28,14 @@ class Message(Model):
         query="SELECT comments.id,comment,message_id,user_id,comments.created_at as postedon,first_name,last_name FROM comments JOIN users ON comments.user_id=users.id WHERE posted_id=:user_id"
         data={'user_id':user_id}
         return self.db.query_db(query,data)
+    def delete_message(self,message_id):
+        cmtquery="DELETE FROM comments WHERE message_id=:message_id"
+        data={'message_id':message_id}
+        self.db.query_db(cmtquery,data)
+        msgquery="DELETE FROM messages WHERE id=:id"
+        data={'id':message_id}
+        self.db.query_db(msgquery,data)
+    def delete_comment(self,comment_id):
+        cmtquery="DELETE FROM comments WHERE id=:id"
+        data={'id':comment_id}
+        self.db.query_db(cmtquery,data)
