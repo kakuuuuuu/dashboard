@@ -32,6 +32,14 @@
       {% endif %}
     </div>
     <div class="container">
+      {% with errors = get_flashed_messages(category_filter='destroy_error')%}
+        {% if errors %}
+        <h2>ERROR</h2>
+        {% for error in errors%}
+        <p>{{error}}</p>
+        {% endfor %}
+        {% endif %}
+      {% endwith %}
       <table class="table">
         <tr>
           <th>ID</th>

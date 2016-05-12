@@ -16,3 +16,23 @@ nav{
 #log,#reg{
   margin-left: 70px;
 }
+.messagebox{
+  border-top-style:outset;
+}
+.commentbox{
+  margin-bottom:10px;
+  width:600px;
+  height:100px;
+  border-radius:5px;
+  padding: 5px;
+  background-color:#DBC5C5;
+  border-top-style:outset;
+  margin-left: 40px;
+  display:block;
+}
+.delete{
+  margin-top:20px;
+}
+.msgdel{
+  margin-bottom:20px;
+}

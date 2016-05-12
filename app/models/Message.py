@@ -12,29 +12,19 @@ from system.core.model import Model
 class Message(Model):
     def __init__(self):
         super(Message, self).__init__()
-    """
-    Below is an example of a model method that queries the database for all users in a fictitious application
-
-    Every model has access to the "self.db.query_db" method which allows you to interact with the database
-
-    def get_users(self):
-        query = "SELECT * from users"
-        return self.db.query_db(query)
-
-    def get_user(self):
-        query = "SELECT * from users where id = :id"
-        data = {'id': 1}
-        return self.db.get_one(query, data)
-
-    def add_message(self):
-        sql = "INSERT into messages (message, created_at, users_id) values(:message, NOW(), :users_id)"
-        data = {'message': 'awesome bro', 'users_id': 1}
-        self.db.query_db(sql, data)
-        return True
-
-    def grab_messages(self):
-        query = "SELECT * from messages where users_id = :user_id"
-        data = {'user_id':1}
-        return self.db.query_db(query, data)
-
-    """
+    def create_message(self,info):
+        query = "INSERT INTO messages (user_id, posted_id, message, created_at, updated_at) VALUES(:user_id,:posted_id, :message, NOW(), NOW())"
+        data = {'user_id': info['user_id'],'posted_id':info['posted_id'], 'message': info['message']}
+        self.db.query_db(query,data)
+    def show_all_messages(self,user_id):
+        query="SELECT message,user_id,messages.id,messages.created_at as postedon,first_name,last_name FROM messages JOIN users ON messages.user_id=users.id WHERE posted_id=:user_id"
+        data={'user_id':user_id}
+        return self.db.query_db(query,data)
+    def create_comment(self,info):
+        query = "INSERT INTO comments (user_id, posted_id, message_id, comment, created_at, updated_at) VALUES(:user_id,:posted_id,:message_id, :comment, NOW(), NOW())"
+        data = {'user_id': info['user_id'],'posted_id':info['posted_id'],'message_id':info['message_id'], 'comment': info['comment']}
+        self.db.query_db(query,data)
+    def show_all_comments(self,user_id):
+        query="SELECT comments.id,comment,message_id,user_id,comments.created_at as postedon,first_name,last_name FROM comments JOIN users ON comments.user_id=users.id WHERE posted_id=:user_id"
+        data={'user_id':user_id}
+        return self.db.query_db(query,data)

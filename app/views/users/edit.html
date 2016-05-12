@@ -32,10 +32,10 @@
         {% endif %}
       {% endwith %}
       <div id="edittitle" class="container col-sm-12">
-        {% if session['id']==user_id %}
+        {% if user['id']==session['id'] %}
         <h2>Edit Profile</h2>
-        {% elif session['id']!=user_id %}
-        <h2>Edit user #{{user_id}}</h2>
+        {% else %}
+        <h2>Edit User ID#{{user['id']}}</h2>
         {% endif %}
       </div>
       <div id="infochange" class="container col-sm-5 form-box">
@@ -48,32 +48,32 @@
           </div>
           </div>
           <div class="form-bottom">
-        <form role="form" action="/updateinfo/{{user_id}}" method="post" class="registration-form">
+        <form role="form" action="/users/updateinfo/{{user['id']}}" method="post" class="registration-form">
           <div class="form-group">
             Email Address:<br />
             <label class="sr-only" for="email">Email Address</label>
-              <input type="text" name="email" placeholder="Email..." >
+              <input type="text" name="email" value={{user['email']}} placeholder="Email...">
             </div>
             <div class="form-group">
               First Name:<br />
               <label class="sr-only" for="first_name">First Name</label>
-              <input type="text" name="first_name" placeholder="First Name...">
+              <input type="text" name="first_name" value={{user['first_name']}} placeholder="First name...">
             </div>
             <div class="form-group">
               Last Name:<br />
               <label class="sr-only" for="last_name">Last Name</label>
-              <input type="text" name="last_name" placeholder="Last Name...">
+              <input type="text" name="last_name" value={{user['last_name']}} placeholder="Last name...">
             </div>
 
             <div class="form-group">
-              {% if session['id']!=user_id %}
+              {% if user['id']!=session['id'] %}
               User Level:<br />
               <label class="sr-only" for="level">User Level</label>
               <select name='level'class="form-control">
                 <option value='normal'>Normal</option>
                 <option value='admin'>Admin</option>
               </select>
-              {% elif session['id']==user_id %}
+              {% elif session['id']==user['id'] %}
               <label class="sr-only" for="last_name">Last Name</label>
               <textarea name="description" placeholder="Description..." rows="5" cols="50"></textarea>
               {% endif %}
@@ -93,7 +93,7 @@
         </div>
         </div>
         <div class="form-bottom">
-      <form role="form" action="/updatepass/{{user_id}}" method="post" class="registration-form">
+      <form role="form" action="/updatepass/{{user['id']}}" method="post" class="registration-form">
         <div class="form-group">
           Password:<br />
           <label class="sr-only" for="password">Password</label>

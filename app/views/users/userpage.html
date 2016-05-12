@@ -28,9 +28,90 @@
       <p><a class="btn btn-primary btn-large" href="/dashboard">Back</a></p>
     </div>
     <div class="container">
-      <p>User ID: {{user['id']}}</p>
-      <p>Email Address: {{user['email']}}</p>
-      <p>Description: {{user['description']}}</p>
+      <h3>User ID: {{user['id']}}</h3>
+      <h3>Email Address: {{user['email']}}</h3>
+      <h3>Description: {{user['description']}}</h3>
+    </div>
+    <div class="container">
+      <div id="message" class="container col-sm-5 form-box">
+        <div class="form-top">
+          <div class="form-top-left">
+            <h4>Leave a message</h4>
+          </div>
+          <div class="form-top-right">
+            <i class="fa fa-pencil"></i>
+          </div>
+          </div>
+          <div class="form-bottom">
+        <form role="form" action="/messages/addmessage/{{user['id']}}" method="post" class="registration-form">
+          <div class="form-group">
+          <label class="sr-only" for="message">Message</label>
+          <textarea name="message" placeholder="Message..."rows="5" cols="100"></textarea>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+  </div>
+    </div>
+    </div>
+    <div class="container">
+
+      {% for message in messages %}
+      {% if message %}
+      <div class="container messagebox">
+      <h6>{{message['first_name']}} {{message['last_name']}} {{message['postedon']}}</h6>
+        <p>{{message['message']}}</p>
+        {% if session['id']==message['user_id'] or session['permission']>=8%}
+        <div class="container col-sm-8">
+        <form role="form" action="/comments/delete/{{message['id']}}" method="get" class="msgdel registration-form">
+          <button type="submit" class="btn delete">Delete</button>
+        </form>
+      </div>
+        {% endif %}
+        <div class="container">
+          {% for comment in comments %}
+          {% if comment %}
+
+          {% if comment['message_id']==message['id'] %}
+          <div class="container commentbox col-sm-7">
+            <div class="container col-sm-11">
+                <h6>{{comment['first_name']}} {{comment['last_name']}} {{comment['postedon']}}</h6>
+                <p>{{comment['comment']}}</p>
+            </div>
+          {% if session['id']==comment['user_id'] or session['permission']>=8%}
+          <div class="container col-sm-1">
+          <form role="form" action="/comments/delete/{{comment['id']}}" method="get" class="pull-right delete registration-form">
+            <button type="submit" class="btn delete">Delete</button>
+          </form>
+        </div>
+          {% endif %}
+          </div>
+
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+          <div class="container col-sm-7 form-box">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h7>Leave a comment</h7>
+              </div>
+              <div class="form-top-right">
+                <i class="fa fa-pencil"></i>
+              </div>
+              </div>
+              <div class="form-bottom">
+            <form role="form" action="/messages/addcomment/{{user['id']}}/{{message['id']}}" method="post" class="registration-form">
+              <div class="form-group">
+              <label class="sr-only" for="comment">Comment</label>
+              <textarea name="comment" placeholder="Comment..."rows="2" cols="60"></textarea>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+        </div>
+        </div>
+      </div>
+      {% endif%}
+      {% endfor %}
     </div>
   </body>
 </html>

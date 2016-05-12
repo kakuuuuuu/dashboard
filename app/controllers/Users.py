@@ -44,10 +44,13 @@ class Users(Controller):
             if session['logstatus']==True:
                 return redirect('/users/new')
             return redirect('/register')
+
     def updateinfo(self,user_id):
-        if session['id']==user_id:
+        print user_id
+
+        if session['id']==int(user_id):
             user_info={
-                'id':user_id,
+                'id':int(user_id),
                 'email':request.form['email'],
                 'first_name':request.form['first_name'],
                 'last_name':request.form['last_name'],
@@ -55,7 +58,7 @@ class Users(Controller):
             }
         else:
             user_info={
-                'id':user_id,
+                'id':int(user_id),
                 'email':request.form['email'],
                 'first_name':request.form['first_name'],
                 'last_name':request.form['last_name'],
@@ -70,7 +73,11 @@ class Users(Controller):
         else:
             return redirect('/dashboard')
         # return redirect('/dashboard')
-
+    def destroy(self,user_id):
+        check=self.models['User'].destroy_user(user_id,session['permission'])
+        if check['status']==False:
+            flash(check['error'],'destroy_error')
+        return redirect('/dashboard')
     def loginuser(self):
         user_info={
             'email':request.form['email'],
