@@ -8,20 +8,20 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="/dashboard">Not Facebook</a>
-  <ul class="nav navbar-nav">
-    <li class="nav-item active">
-      <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/users/show/{{session['id']}}">Profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/logout">Log Out</a>
-    </li>
-  </ul>
-</nav>
+    <div class="navbar navbar-light bg-faded">
+      <a class="navbar-brand" href="/dashboard">Not Facebook</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/show/{{session['id']}}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
     <div id="banner" class="container hero-unit">
       <h1>Dashboard</h1>
       <p>
