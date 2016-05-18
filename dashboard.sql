@@ -14,13 +14,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema dashboarddb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `dashboarddb` DEFAULT CHARACTER SET latin1 ;
-USE `dashboarddb` ;
+-- CREATE SCHEMA IF NOT EXISTS `dashboarddb` DEFAULT CHARACTER SET latin1 ;
 
 -- -----------------------------------------------------
 -- Table `dashboarddb`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dashboarddb`.`users` (
+CREATE TABLE IF NOT EXISTS `dashboard`.`users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NULL DEFAULT NULL,
   `first_name` VARCHAR(45) NULL DEFAULT NULL,
@@ -39,7 +38,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table `dashboarddb`.`messages`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dashboarddb`.`messages` (
+CREATE TABLE IF NOT EXISTS `dashboard`.`messages` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `message` TEXT NULL DEFAULT NULL,
   `created_at` DATETIME NULL DEFAULT NULL,
@@ -51,12 +50,12 @@ CREATE TABLE IF NOT EXISTS `dashboarddb`.`messages` (
   INDEX `fk_messages_users2_idx` (`user_id` ASC),
   CONSTRAINT `fk_messages_users1`
     FOREIGN KEY (`posted_id`)
-    REFERENCES `dashboarddb`.`users` (`id`)
+    REFERENCES `dashboard`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_messages_users2`
     FOREIGN KEY (`user_id`)
-    REFERENCES `dashboarddb`.`users` (`id`)
+    REFERENCES `dashboard`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -65,9 +64,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `dashboarddb`.`comments`
+-- Table `dashboard`.`comments`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dashboarddb`.`comments` (
+CREATE TABLE IF NOT EXISTS `dashboard`.`comments` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `comment` TEXT NULL DEFAULT NULL,
   `created_at` DATETIME NULL DEFAULT NULL,
@@ -81,17 +80,17 @@ CREATE TABLE IF NOT EXISTS `dashboarddb`.`comments` (
   INDEX `fk_comments_users2_idx` (`posted_id` ASC),
   CONSTRAINT `fk_comments_messages`
     FOREIGN KEY (`message_id`)
-    REFERENCES `dashboarddb`.`messages` (`id`)
+    REFERENCES `dashboard`.`messages` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `dashboarddb`.`users` (`id`)
+    REFERENCES `dashboard`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_users2`
     FOREIGN KEY (`posted_id`)
-    REFERENCES `dashboarddb`.`users` (`id`)
+    REFERENCES `dashboard`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
